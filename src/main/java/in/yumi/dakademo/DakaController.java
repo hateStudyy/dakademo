@@ -1,9 +1,7 @@
 package in.yumi.dakademo;
 
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,9 +16,20 @@ public class DakaController {
         return "OK";
     }
 
-    @GetMapping("/execute")
-    public String daka() {
-        return "打卡成功！";
+    @PostMapping("/add")
+    public String record(@RequestBody ExerciseRecord exerciseRecord, @RequestParam("userId") Integer userId) {
+        if (exerciseRecord == null) {
+            throw new RuntimeException("打卡数据不能为空！");
+        }
+        if (userId == null) {
+            throw new RuntimeException("用户ID不能为空！");
+        }
+        boolean record = exerciseRecordService.record(exerciseRecord, userId);
+        if (record) {
+            return "打卡成功！";
+        }
+
+        return "打卡失败！今日已打卡";
     }
 
     @GetMapping("/list")

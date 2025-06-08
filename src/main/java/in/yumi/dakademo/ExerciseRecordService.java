@@ -8,5 +8,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2025-06-08 20:09:37
 */
 public interface ExerciseRecordService extends IService<ExerciseRecord> {
-
+    boolean record(ExerciseRecord exerciseRecord, Integer userId);
 }
