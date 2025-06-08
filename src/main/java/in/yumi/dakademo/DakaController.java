@@ -27,6 +27,8 @@ public class DakaController {
     public List<ExerciseRecord> listRecord() {
         List<ExerciseRecord> list = exerciseRecordService.getBaseMapper().selectList(null);
         System.out.println(list);
+        ExerciseRecord exerciseRecord = new ExerciseRecord();
+        Long id = exerciseRecord.getId();
         return list;
     }
 
