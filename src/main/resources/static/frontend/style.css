@@ -28,3 +28,30 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.timezone-container {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.timezone-container h2 {
+    margin-top: 0;
+    color: #555;
+}
+
+.timezone-container button {
+    margin-bottom: 10px;
+}
+
+#timezoneDisplay {
+    margin: 0;
+    padding: 10px;
+    background-color: #e9f7ef;
+    border-left: 4px solid #28a745;
+    font-weight: bold;
+    color: #155724;
+}
+

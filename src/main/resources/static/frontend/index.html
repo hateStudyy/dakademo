@@ -14,11 +14,22 @@
     <input type="text" id="userId" placeholder="用户ID" />
     <textarea id="description" placeholder="描述..."></textarea>
     <button onclick="addDaka()">提交打卡</button>
+    <button onclick="addDaka()">提交打卡</button>
   </div>
 
   <div class="list-container">
     <h2>打卡记录</h2>
     <ul id="dakaList"></ul>
+  </div>
+  <div>
+    <h2>原始数据</h2>
+    <pre id="rawData"></pre>
+  </div>
+
+  <div class="timezone-container">
+    <h2>当前时区</h2>
+    <button onclick="getTimezone()">获取时区</button>
+    <p id="timezoneDisplay">点击按钮获取时区信息</p>
   </div>
 
   <script src="app.js"></script>

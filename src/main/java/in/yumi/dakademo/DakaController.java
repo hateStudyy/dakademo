@@ -41,4 +41,18 @@ public class DakaController {
         return list;
     }
 
+    @GetMapping("/timezone")
+    public String getTimeZone() {
+        return "当前时区：" + java.util.TimeZone.getDefault().getID();
+    }
+
+
+    /**
+     * 接入ai
+     */
+    @PostMapping("/ai")
+    public String ai(@RequestBody String content) {
+
+        return "ai: " + content;
+    }
 }

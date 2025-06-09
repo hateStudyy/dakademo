@@ -8,10 +8,12 @@ async function fetchDakaList() {
     const res = await api.get('/api/daka/list');
     const list = res.data || [];
     const ul = document.getElementById('dakaList');
+    const rawDat = document.getElementById('rawData');
+    rawDat.textContent = JSON.stringify(list);
     ul.innerHTML = '';
     list.forEach(item => {
       const li = document.createElement('li');
-      li.textContent = `${item.description}（用户ID：${item.userId}）`;
+      li.textContent = `id:${item.id} ${item.description}（用户ID：${item.userId}）（打卡时间：${item.createTime}）`;
       ul.appendChild(li);
     });
   } catch (err) {
@@ -36,6 +38,17 @@ async function addDaka() {
   } catch (err) {
     console.error('打卡失败', err);
     alert('打卡失败，请查看控制台错误');
+  }
+}
+
+// 获取当前时区
+async function getTimezone() {
+  try {
+    const res = await api.get('/api/daka/timezone');
+    document.getElementById('timezoneDisplay').textContent = res.data;
+  } catch (err) {
+    console.error('获取时区失败', err);
+    document.getElementById('timezoneDisplay').textContent = '获取时区失败，请查看控制台';
   }
 }
 
