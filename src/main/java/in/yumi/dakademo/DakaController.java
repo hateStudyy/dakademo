@@ -1,5 +1,6 @@
 package in.yumi.dakademo;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.openai.client.OpenAIClient;
 import com.openai.client.okhttp.OpenAIOkHttpClient;
 import com.openai.models.ChatCompletion;
@@ -62,6 +63,28 @@ public class DakaController {
                 .build();
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
                 .addUserMessage(content)
+                .model("qwen-plus")
+                .build();
+        ChatCompletion chatCompletion = client.chat().completions().create(params);
+        String res = chatCompletion.choices().get(0).message().content().orElse("无返回内容");
+        System.out.println(chatCompletion.choices().get(0).message().content().orElse("无返回内容"));
+        return res;
+    }
+
+    @GetMapping("/aiAnalysis")
+    public String getAiAnalysisResult(@RequestParam("userId") Integer userId) {
+        if(userId == null) {
+            throw new RuntimeException("用户ID不能为空！");
+        }
+        QueryWrapper<ExerciseRecord> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        List<ExerciseRecord> list = exerciseRecordService.getBaseMapper().selectList(queryWrapper);
+        OpenAIClient client = OpenAIOkHttpClient.builder()
+                .apiKey(System.getenv("DASHSCOPE_API_KEY"))
+                .baseUrl("https://dashscope.aliyuncs.com/compatible-mode/v1")
+                .build();
+        ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
+                .addUserMessage(list.toString())
                 .model("qwen-plus")
                 .build();
         ChatCompletion chatCompletion = client.chat().completions().create(params);

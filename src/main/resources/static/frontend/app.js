@@ -91,6 +91,58 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+// 获取 AI 分析结果（支持 ?userId=xxx 形式）
+async function getAIAnalysis(userId) {
+  if (!userId) {
+    alert('用户ID不能为空');
+    return;
+  }
+
+  const loading = document.getElementById('aiAnalysisLoading');
+  const resultDiv = document.getElementById('aiAnalysisResult');
+
+  loading.style.display = 'block';
+  resultDiv.innerHTML = ''; // 清空旧内容
+
+  try {
+    const res = await api.get('/daka/aiAnalysis', {
+      params: {
+        userId: userId
+      }
+    });
+
+    resultDiv.innerHTML = marked.parse(res.data); // 支持 Markdown 格式渲染
+  } catch (err) {
+    console.error('获取 AI 分析失败', err);
+    resultDiv.textContent = '获取分析失败，请查看控制台错误';
+  } finally {
+    loading.style.display = 'none';
+  }
+}
+
+
+// Markdown 编辑器逻辑
+document.addEventListener('DOMContentLoaded', function () {
+  const input = document.getElementById('markdownInput');
+  const preview = document.getElementById('markdownPreview');
+
+  // 初始化预览
+  function updatePreview() {
+    const markdownText = input?.value || '';
+    preview.innerHTML = marked.parse(markdownText);
+  }
+
+  // 初始加载一次
+  if (input && preview) {
+    updatePreview();
+    input.addEventListener('input', updatePreview);
+  }
+});
+
+
+
+
+
 
 
 

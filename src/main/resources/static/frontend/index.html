@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <title>打卡系统</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- 引入 marked.js -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- 引入 Markdown 样式 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -41,6 +45,37 @@
       <button type="submit">发送</button>
     </form>
   </div>
+
+  <!-- AI 打卡分析 -->
+  <div class="ai-analysis-container">
+      <h2>AI 打卡分析</h2>
+      <button onclick="getAIAnalysis(123)">获取我的分析报告</button>
+
+      <!-- 加载中提示 -->
+      <div id="aiAnalysisLoading" style="display: none;">
+          <span class="spinner"></span> 正在生成 AI 分析报告，请稍候...
+      </div>
+
+      <!-- 分析结果展示 -->
+      <div id="aiAnalysisResult" class="markdown-body">
+          点击按钮获取 AI 分析结果
+      </div>
+  </div>
+
+
+  <!-- 引入 Markdown 样式 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.css">
+
+  <!-- Markdown 编辑器 -->
+  <div class="markdown-editor-container">
+    <h2>Markdown 编辑器</h2>
+    <textarea id="markdownInput" placeholder="输入你的 Markdown 内容..."></textarea>
+    <div id="markdownPreview" class="markdown-body">
+      <!-- Markdown 预览内容将显示在这里 -->
+    </div>
+  </div>
+
+
 
 
   <script src="app.js"></script>
